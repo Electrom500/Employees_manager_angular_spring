@@ -14,7 +14,16 @@ public class Employee implements Serializable {
     private String email;
     private String phoneNumber;
     private String imageURL;
+    private String employeeCode;
     private Integer age;
+
+    public String getEmployeeCode() {
+        return employeeCode;
+    }
+
+    public void setEmployeeCode(String employeeCode) {
+        this.employeeCode = employeeCode;
+    }
     public Long getId() {
         return id;
     }
