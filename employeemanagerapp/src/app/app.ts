@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   standalone: true,
-  //imports: [RouterOutlet, CommonModule],
   imports: [CommonModule,FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
@@ -80,7 +79,6 @@ export class App implements OnInit {
     (response: Employee) => {
       console.log('Employee updated', response);
       this.getEmployees();
-      form.resetForm();
     },
     (error: HttpErrorResponse) => {
       alert(error.message);
@@ -99,6 +97,25 @@ public onDeleteEmployee(employeeId: number | undefined): void {
       alert(error.message);
     }
   );
+}
+
+public searchEmployees(key:string):void{
+  const result: Employee[]= [];
+  for (const employee of this.employees){
+    if(employee.name.toLowerCase().indexOf(key.toLowerCase()) !== -1
+    || employee.age.toString().toLowerCase().indexOf(key.toLowerCase()) !== -1
+    || employee.email.toLowerCase().indexOf(key.toLowerCase()) !== -1
+    || employee.phoneNumber.toLowerCase().indexOf(key.toLowerCase()) !== -1
+    || employee.jobTitle.toLowerCase().indexOf(key.toLowerCase()) !== -1
+  ){
+      result.push(employee);
+    }
+  }
+  
+  this.employees = result;
+  if(result.length === 0 || !key){
+    this.getEmployees();
+  }
 }
 
 }
